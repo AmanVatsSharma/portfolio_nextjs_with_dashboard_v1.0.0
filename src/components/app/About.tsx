@@ -1,11 +1,58 @@
-import React from 'react'
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
 
-type Props = {}
+type Props = {};
 
 const About = (props: Props) => {
   return (
-    <div>About</div>
-  )
-}
+    <motion.div 
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{ opacity: 1 }}
+    transition={{
+      duration: 1.5,
+    }}
+    className="flex flex-col relative h-screen text-center md:text-left md:flex-row max-w-7xl px-10 justify-evenly mx-auto items-center">
+      <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-500 text-2xl">
+        About
+      </h3>
+      <motion.img
+        initial={{
+          x: -200,
+          opacity: 0,
+        }}
+        transition={{
+          duration: 1.2,
+        }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-4YbvE-R4dDvsyWHMCfRCfq1lA1PMs6kPweGsPGkPtgebbR0h"
+        className="-mb-20 md:mb-0 flex-shrink-0w-56 h-56 rounded-full object-cover md:rounded-lg md:w-64 md:h-95 xl:w-[500px] xl:h-[600px]"
+      />
+      <div className="px-0 space-y-10 md:px-10">
+        <h4 className="text-4xl font-semibold">
+          Here is a{" "}
+          <span className="underline decoration-[#f7ab0a]/50">little </span>{" "}
+          background
+        </h4>
+        <p className="text-sm">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt
+          doloremque, esse cupiditate maxime delectus ex magnam cum distinctio
+          expedita dolores dignissimos est praesentium aspernatur placeat saepe
+          nesciunt sint suscipit ad perferendis iusto voluptatum. Minus
+          reprehenderit quia ducimus ea facere corrupti accusantium accusamus
+          qui? A eligendi quidem sunt ipsum nostrum nam earum labore, sapiente,
+          vero, hic excepturi amet unde ab qui voluptate perspiciatis natus
+          dolorem! Expedita dolore nostrum animi perspiciatis sequi dicta nihil
+          et doloribus quos quae dignissimos magni assumenda enim quasi in,
+          itaque placeat odio qui ut dolor! Delectus itaque dolor quia
+          exercitationem animi error voluptatum veniam qui sunt inventore?
+        </p>
+      </div>
+    </motion.div>
+  );
+};
 
-export default About
+export default About;

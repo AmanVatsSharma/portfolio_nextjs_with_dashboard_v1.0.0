@@ -10,12 +10,12 @@ export default function Home() {
       <Header />
 
       {/* hero section here */}
-      <section id="hero" className="snap-center" >
+      <section id="hero" className="snap-start" >
         <Hero />
       </section>
 
       {/* about section here */}
-      <section>
+      <section id="about" className="snap-center">
         <About/>
       </section>
 

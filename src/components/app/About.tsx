@@ -28,10 +28,10 @@ const About = (props: Props) => {
         }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-4YbvE-R4dDvsyWHMCfRCfq1lA1PMs6kPweGsPGkPtgebbR0h"
-        className="-mb-20 md:mb-0 flex-shrink-0w-56 h-56 rounded-full object-cover md:rounded-lg md:w-64 md:h-95 xl:w-[500px] xl:h-[600px]"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyc-P95gOMmgGJ5_7pP6hLJ6L9B2cSnpNn-w&s"
+        className="-mb-20 md:mb-0 flex-shrink-0w-56 h-56 rounded-full object-cover md:rounded-lg md:w-64 md:h-95 xl:w-[500px] xl:h-[600px] "
       />
-      <div className="px-0 space-y-10 md:px-10">
+      <div className="px-0 space-y-10 md:px-10 ">
         <h4 className="text-4xl font-semibold">
           Here is a{" "}
           <span className="underline decoration-[#f7ab0a]/50">little </span>{" "}

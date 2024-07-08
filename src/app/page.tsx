@@ -9,7 +9,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-scroll z-0">
+    <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0">
       {/* header section here */}
       <Header />
 
@@ -34,9 +34,9 @@ export default function Home() {
       </section>
 
       {/* projects section here */}
-<section id="projects" className="snap-start">
-  <Projects />
-</section>
+      <section id="projects" className="snap-start">
+        <Projects />
+      </section>
       {/* certifications section here */}
 
       {/* contact me section here */}

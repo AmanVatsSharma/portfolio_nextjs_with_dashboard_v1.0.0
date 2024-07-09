@@ -51,21 +51,6 @@ export default {
       },
     },
     {
-      name: "phoneNumber",
-      title: "phoneNumber",
-      type: "string",
-    },
-    {
-      name: "email",
-      title: "email",
-      type: "string",
-    },
-    {
-      name: "address",
-      title: "address",
-      type: "string",
-    },
-    {
       name: "socials",
       title: "socials",
       type: "array",

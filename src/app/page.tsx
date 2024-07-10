@@ -5,14 +5,29 @@ import Projects from "@/components/app/Projects";
 import Skills from "@/components/app/Skills";
 import WorkExperience from "@/components/app/WorkExperience";
 import Hero from "@/components/Hero";
+import { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
-export default function Home() {
+import { Experience, PageInfo, Project, Skill, Social } from "../../typing";
+import { fetchProjects } from "@/utils/fetchProjects";
+import { fetchPageInfo } from "@/utils/fetchPageInfo";
+import { fetchSkills } from "@/utils/fetchSkills";
+import { fetchSocial } from "@/utils/fetchSocial";
+import { fetchExperience } from "@/utils/fetchExperiences";
+import { getStaticProps } from "@/utils/fetchData";
+type Props = {
+  pageInfo: PageInfo[];
+  experiences: Experience[];
+  skills: Skill[];
+  socials: Social[];
+  projects: Project[];
+};
+const Home: NextPage<Props>  = ( { pageInfo, experiences, skills, socials, projects} : Props ) => {
+  console.log("Fetched socials:", socials);
   return (
     <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80">
       {/* header section here */}
-      <Header />
+      <Header socials={socials} />
 
       {/* hero section here */}
       <section id="hero" className="snap-start">
@@ -58,4 +73,7 @@ export default function Home() {
       </Link>
     </div>
   );
-}
+};
+export default Home;
+
+

@@ -14,7 +14,6 @@ export default {
       title: "progress",
       type: "number",
       description: "Progress of skill from 0 to 100%",
-      validation: (Rule) => Rule.min(0).max(100),
     },
     {
       name: "image",

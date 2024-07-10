@@ -10,7 +10,9 @@ type Props = {
 };
 
 function Header({ socials }: Props) {
-  
+  if (!socials) {
+    socials = []; // Assign an empty array to socials
+  }
   return (
     <header className="sticky top-0 flex items-start justify-between p-5 max-w-7xl mx-auto z-20 xl:items-center">
       <motion.div

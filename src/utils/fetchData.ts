@@ -6,7 +6,7 @@ import { fetchSkills } from './fetchSkills';
 import { fetchSocial } from './fetchSocial';
 import { fetchProjects } from './fetchProjects';
 
-type Props = {
+export type Props = {
   pageInfo: PageInfo[];
   experiences: Experience[];
   skills: Skill[];
@@ -31,3 +31,4 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     },
   };
 };
+

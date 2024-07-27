@@ -24,25 +24,25 @@ const ContactMe = (props: Props) => {
       </h3>
 
       <div className="flex flex-col space-y-10">
-        <h4 className="text-4xl text-semibold text-center">
+        <h4 className="text-3xl md:text-4xl text-semibold text-center">
           I have got just what you need.
           <span className="decoration-[#f7ab0a]/50 underline">Lets Talk.</span>
         </h4>
 
         <div className="space-y-10">
           <div className="flex items-center space-x-5 justify-center">
-            <PhoneIcon className="text-[#f7ab0a] h-7 w-7 animate-pulse" />
-            <p className="text-2xl">+91 996 373 0111</p>
+            <PhoneIcon className="text-[#f7ab0a] h-6 w-6 animate-pulse" />
+            <p className="text-xl">+91 996 373 0111</p>
           </div>
 
           <div className="flex items-center space-x-5 justify-center">
-            <MapPinIcon className="text-[#f7ab0a] h-7 w-7 animate-pulse" />
-            <p className="text-2xl">Gurugram, Haryana.</p>
+            <MapPinIcon className="text-[#f7ab0a] h-6 w-6 animate-pulse" />
+            <p className="text-xl">Gurugram, Haryana.</p>
           </div>
 
           <div className="flex items-center space-x-5 justify-center">
-            <EnvelopeIcon className="text-[#f7ab0a] h-7 w-7 animate-pulse" />
-            <p className="text-2xl">aman95026@gmail.com</p>
+            <EnvelopeIcon className="text-[#f7ab0a] h-6 w-6 animate-pulse" />
+            <p className="text-xl">aman95026@gmail.com</p>
           </div>
         </div>
 

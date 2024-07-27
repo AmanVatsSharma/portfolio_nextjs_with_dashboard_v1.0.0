@@ -4,7 +4,7 @@ import { sanityClient } from "./sanity";
 import { Project } from "../../../typing";
 
 const query = groq`
-*[_type == "project"] {
+*[_type == "projects"] {
 ...,
 technologies[]->
 }
@@ -13,9 +13,9 @@ technologies[]->
 
 type Data = {
     projects: Project[]
-}    
+}
 
-export default async function  handler(
+export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {

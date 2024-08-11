@@ -6,15 +6,15 @@ import { urlFor } from "@/pages/api/sanity";
 
 type Props = {
   pageInfo: PageInfo
-  loading: boolean
 };
 
-const About = ({ pageInfo,loading }: Props) => {
+const About = ({ pageInfo }: Props) => {
   const [profilePicUrl, setProfilePicURl] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyc-P95gOMmgGJ5_7pP6hLJ6L9B2cSnpNn-w&s")
 
   useEffect(() => {
-    setProfilePicURl(urlFor(pageInfo.profilPic).url())
-  }, [loading])
+    // setProfilePicURl(urlFor(pageInfo.profilPic).width(200).url())
+    console.log(pageInfo.profilPic)
+  }, [pageInfo])
 
   return (
     <motion.div

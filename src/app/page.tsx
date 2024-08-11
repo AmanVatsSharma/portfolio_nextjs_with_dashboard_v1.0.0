@@ -101,7 +101,7 @@ const Home: NextPage = ({
 
       {/* about section here */}
       <section id="about" className="snap-center">
-        <About pageInfo={pageInfo} loading={loading} />
+        <About pageInfo={pageInfo} />
       </section>
 
       {/* experience section here */}

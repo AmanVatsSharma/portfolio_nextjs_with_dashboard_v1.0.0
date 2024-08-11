@@ -21,6 +21,10 @@ const Projects = ({ projects }: Props) => {
         Projects
       </h3>
 
+      <h3 className="absolute top-36 uppercase tracking-[3px] text-gray-500 text-sm">
+        swipe for more projects
+      </h3>
+
       <div className="realtive w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80 scrollbar-thin">
         {projects?.map((project, i) => (
           <div
@@ -63,7 +67,7 @@ const Projects = ({ projects }: Props) => {
                 {project?.summary}
               </p>
 
-              <Link href={project.linkToBuild}  className="bg-[#f7ab0a] py-5 px-5 md:px-10 rounded-md text-black font-bold text-lg">Visit Project</Link>
+              <Link href={project.linkToBuild} className="bg-[#f7ab0a] py-5 px-5 md:px-10 rounded-md text-black font-bold text-lg">Visit Project</Link>
             </div>
           </div>
         ))}

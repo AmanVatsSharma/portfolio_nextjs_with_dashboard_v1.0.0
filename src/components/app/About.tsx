@@ -14,9 +14,8 @@ const About = ({ pageInfo }: Props) => {
   useEffect(() => {
     try {
       setProfilePicURl(urlFor(pageInfo.profilPic).url())
-
     } catch (error) {
-      setProfilePicURl("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyc-P95gOMmgGJ5_7pP6hLJ6L9B2cSnpNn-w&s")
+      setProfilePicURl("https://cdn.sanity.io/images/fyyf2zob/production/ef5ace2b861897c55a008ff19582065b1a0f4e90-3060x4080.jpg")
     }
   }, [pageInfo])
 

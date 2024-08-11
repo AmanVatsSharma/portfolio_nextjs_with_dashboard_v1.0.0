@@ -23,7 +23,7 @@ const Projects = ({ projects }: Props) => {
       <div className="realtive w-full flex overflow-x-scroll overflow-y-hidden snap-x snap-mandatory z-20 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80 scrollbar-thin">
         {projects?.map((project, i) => (
           <div
-            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-20 md:p-44 h-screen"
+            className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-18 md:p-44 h-screen"
             key={i + 1}
           >
             <motion.img
@@ -42,7 +42,7 @@ const Projects = ({ projects }: Props) => {
             />
 
             <div className="space-y-10 px-0 md:px-10 max-w-6xl">
-              <h4 className="text-3xl md:text-4xl font-semibold text-center">
+              <h4 className="text-2xl md:text-3xl font-semibold text-center">
                 <span className="underline decoration-[#f7ab0a]/50">
                   Case study {i + 1} of {projects?.length}:
                 </span>

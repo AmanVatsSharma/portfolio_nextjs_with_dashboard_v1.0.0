@@ -11,7 +11,7 @@ type Props = {
 
 const ExperienceCard = ({ experience }: Props) => {
   return (
-    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[300px] md:w-[600px] xl:w-[900px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-none duration-200 overflow-hidden">
+    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[300px] md:w-[450px] xl:w-[600px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-none duration-200 overflow-hidden">
       <motion.img
         initial={{
           y: -100,
@@ -28,16 +28,16 @@ const ExperienceCard = ({ experience }: Props) => {
       />
 
       <div className="px-0 md:px-10">
-        <h4 className="text-4xl font-light">
+        <h4 className="text-3xl font-light">
           {experience.jobTitle}
         </h4>
-        <p className="font-bold text-2xl mt-1">
+        <p className="font-bold text-xl mt-1">
           {experience.company}
         </p>
         <div className="flex space-x-2 my-2">
           {experience.technologies.map(technology => (
             <img
-              className="h-10 w-10 rounded-full"
+              className="h-8 w-8 rounded-full"
               key={technology._id}
               src={urlFor(technology.image).url()}
               // src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"

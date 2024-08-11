@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { PageInfo } from "../../../typing";
 import { urlFor } from "@/pages/api/sanity";
@@ -10,9 +10,10 @@ type Props = {
 
 const About = ({ pageInfo }: Props) => {
   const [profilePicUrl, setProfilePicURl] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyc-P95gOMmgGJ5_7pP6hLJ6L9B2cSnpNn-w&s")
-  setTimeout(() => {
+
+  useEffect(() => {
     setProfilePicURl(urlFor(pageInfo.profilPic).url())
-  }, 1200)
+  }, [pageInfo])
 
   return (
     <motion.div

@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Project } from "../../../typing";
 import { urlFor } from "@/pages/api/sanity";
+import Link from "next/link";
 
 type Props = {
   projects: Project[];
@@ -61,6 +62,8 @@ const Projects = ({ projects }: Props) => {
               <p className="text-base md:text-lg text-center md:text-left">
                 {project?.summary}
               </p>
+
+              <Link href={project.linkToBuild}  className="bg-[#f7ab0a] py-5 px-5 md:px-10 rounded-md text-black font-bold text-lg">Visit Project</Link>
             </div>
           </div>
         ))}

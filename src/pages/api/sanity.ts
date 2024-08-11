@@ -1,6 +1,8 @@
 import { createClient } from "next-sanity";
-import createImageUrlBuilder from "@sanity/image-url";
+import SanityClient from 'next-sanity-client';
 import imageUrlBuilder from '@sanity/image-url'
+import createImageUrlBuilder from "@sanity/image-url";
+
 
 export const config = {
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
@@ -10,14 +12,32 @@ export const config = {
 };
 
 // set up client for testing data in the getProps page functions
-export const sanityClient = createClient(config);
-
-export const urlFor = (source: any) =>
-  createImageUrlBuilder(sanityClient).image(source);
-
-
-// const builder = imageUrlBuilder(sanityClient)
+// export const sanityClient = createClient(config);
 
 // export function urlFor(source: any) {
-//   return builder.image(source)
+//   try {
+//     createImageUrlBuilder(sanityClient).image(source);
+//   } catch (error) {
+//     console.error('Error generating image URL:', error);
+//   }
 // }
+
+
+// new method 
+
+const client = new SanityClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "fyyf2zob",
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  useCdn: process.env.NODE_ENV === "production",
+});
+
+
+export function urlFor(source: any) {
+  try {
+    return imageUrlBuilder(client).image(source);
+  } catch (error) {
+    console.error('Error generating image URL:', error);
+    return '';
+  }
+}
+

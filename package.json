@@ -17,6 +17,7 @@
     "framer-motion": "^11.2.13",
     "next": "14.2.4",
     "next-sanity": "^9.4.2",
+    "next-sanity-client": "^1.0.8",
     "prettier": "^3.3.2",
     "react": "^18",
     "react-dom": "^18",

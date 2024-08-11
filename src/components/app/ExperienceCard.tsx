@@ -37,13 +37,19 @@ const ExperienceCard = ({ experience }: Props) => {
         <div className="flex space-x-2 my-2">
           {experience.technologies.map(technology => (
             <img
-              className="h-10 w-10 rounded-full"
+              className="md:h-10 md:w-10 rounded-full"
               key={technology._id}
               src={urlFor(technology.image).url()}
               // src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"
               alt={technology.title}
             />
           ))}
+                      <img
+              className="md:h-10 md:w-10 rounded-full"
+              src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"
+              alt={'technology.title'}
+            />
+
         </div>
         <p className="uppercase py-5 text-gray-300">
           {new Date(experience.dateStarted).toDateString()} - {experience.isCurrentlyWorkingHere ? "Present" : new Date(experience.dateEnded).toDateString()}

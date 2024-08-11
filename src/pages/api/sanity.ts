@@ -12,7 +12,12 @@ export const config = {
 // set up client for testing data in the getProps page functions
 export const sanityClient = createClient(config);
 
-export const urlFor = (source: any) =>
-  createImageUrlBuilder(sanityClient).image(source);
+// export const urlFor = (source: any) =>
+//   createImageUrlBuilder(sanityClient).image(source);
 
 
+const builder = imageUrlBuilder(sanityClient)
+
+export function urlFor(source: any) {
+  return builder.image(source)
+}

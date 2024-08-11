@@ -8,12 +8,12 @@ type Props = {
   pageInfo: PageInfo
 };
 
-const About = ({ pageInfo }: Props) => {
+const About = ({ pageInfo }: Props, loading: boolean) => {
   const [profilePicUrl, setProfilePicURl] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyc-P95gOMmgGJ5_7pP6hLJ6L9B2cSnpNn-w&s")
 
   useEffect(() => {
     setProfilePicURl(urlFor(pageInfo.profilPic).url())
-  }, [pageInfo])
+  }, [loading])
 
   return (
     <motion.div
@@ -44,7 +44,7 @@ const About = ({ pageInfo }: Props) => {
         className="-mb-20 md:mb-0 flex-shrink-0w-56 h-56 rounded-full object-cover md:rounded-lg md:w-64 md:h-95 xl:w-[500px] xl:h-[600px] "
       />
       <div className="px-0 space-y-10 md:px-10 ">
-        <h4 className="text-4xl font-semibold">
+        <h4 className="text-3xl md:text-4xl font-semibold">
           Here is a
           <span className="underline decoration-[#f7ab0a]/50"> little </span>{" "}
           background

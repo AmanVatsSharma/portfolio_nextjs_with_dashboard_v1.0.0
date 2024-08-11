@@ -58,7 +58,7 @@ const Projects = ({ projects }: Props) => {
                   <img key={technology._id}
                     src={urlFor(technology.image).url()}
                     alt={technology.title}
-                    className="h-10 w-10"
+                    className="h-10 w-10 rounded-full"
                   />
                 ))}
               </div>

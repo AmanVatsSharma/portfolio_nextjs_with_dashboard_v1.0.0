@@ -11,10 +11,23 @@ const query = groq`
 type Data = {
     skills: Skill[]
 }
-export default async function  handler(
+export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
+
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins or specify a specific origin
+
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+    // Handle OPTIONS request
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
+
+
     const skills: Skill[] = await sanityClient.fetch(query);
     res.status(200).json({ skills })
 }

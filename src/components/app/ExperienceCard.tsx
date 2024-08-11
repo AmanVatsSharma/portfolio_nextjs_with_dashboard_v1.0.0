@@ -11,7 +11,7 @@ type Props = {
 
 const ExperienceCard = ({ experience }: Props) => {
   return (
-    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[500px] md:w-[600px] xl:w-[900px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-none duration-200 overflow-hidden">
+    <article className="flex flex-col rounded-lg items-center space-y-7 flex-shrink-0 w-[300px] md:w-[600px] xl:w-[900px] snap-center bg-[#292929] p-10 hover:opacity-100 opacity-40 cursor-pointer transition-none duration-200 overflow-hidden">
       <motion.img
         initial={{
           y: -100,
@@ -44,12 +44,6 @@ const ExperienceCard = ({ experience }: Props) => {
               alt={technology.title}
             />
           ))}
-                      <img
-              className="md:h-10 md:w-10 rounded-full"
-              src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"
-              alt={'technology.title'}
-            />
-
         </div>
         <p className="uppercase py-5 text-gray-300">
           {new Date(experience.dateStarted).toDateString()} - {experience.isCurrentlyWorkingHere ? "Present" : new Date(experience.dateEnded).toDateString()}

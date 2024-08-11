@@ -30,10 +30,10 @@ const Hero = ({ pageInfo }: Props) => {
   // console.log(pageInfo.name)
   const [heroImageUrl, setHeroImageUrl] = useState<string>("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-4YbvE-R4dDvsyWHMCfRCfq1lA1PMs6kPweGsPGkPtgebbR0h");
 
-  setTimeout(() => {
+  useEffect(() => {
     setHeroImageUrl(urlFor(pageInfo.heroImage).url())
 
-  }, 1000)
+  }, [pageInfo])
 
 
   return (

@@ -37,7 +37,7 @@ const ExperienceCard = ({ experience }: Props) => {
         <div className="flex space-x-2 my-2">
           {experience.technologies.map(technology => (
             <img
-              className="md:h-10 md:w-10 rounded-full"
+              className="h-10 w-10 rounded-full"
               key={technology._id}
               src={urlFor(technology.image).url()}
               // src="https://w7.pngwing.com/pngs/326/85/png-transparent-google-logo-google-text-trademark-logo-thumbnail.png"

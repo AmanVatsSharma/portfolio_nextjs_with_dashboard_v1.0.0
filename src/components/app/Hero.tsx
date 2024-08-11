@@ -31,7 +31,13 @@ const Hero = ({ pageInfo }: Props) => {
   const [heroImageUrl, setHeroImageUrl] = useState<string>("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-4YbvE-R4dDvsyWHMCfRCfq1lA1PMs6kPweGsPGkPtgebbR0h");
 
   useEffect(() => {
-    setHeroImageUrl(urlFor(pageInfo.heroImage).url())
+    try {
+      setHeroImageUrl(urlFor(pageInfo.heroImage).url())
+
+    } catch (error) {
+      setHeroImageUrl("https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcT-4YbvE-R4dDvsyWHMCfRCfq1lA1PMs6kPweGsPGkPtgebbR0h")
+    }
+
 
   }, [pageInfo])
 

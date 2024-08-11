@@ -13,23 +13,11 @@ const About = ({ pageInfo }: Props) => {
 
   useEffect(() => {
     try {
-      if (pageInfo?.profilPic && pageInfo.profilPic._type === 'image') {
-        const generatedUrl = urlFor(pageInfo.profilPic)?.url();
-        if (generatedUrl) {
-          setProfilePicURl(generatedUrl);
-        } else {
-          throw new Error('Invalid URL generated');
-        }
-      } else {
-        throw new Error('Invalid image object');
-      }
+      setProfilePicURl(urlFor(pageInfo.profilPic).url())
     } catch (error) {
-      console.error('Error generating profile picture URL:', error);
-      setProfilePicURl(
-        'https://cdn.sanity.io/images/fyyf2zob/production/ef5ace2b861897c55a008ff19582065b1a0f4e90-3060x4080.jpg'
-      );
+      setProfilePicURl("https://cdn.sanity.io/images/fyyf2zob/production/ef5ace2b861897c55a008ff19582065b1a0f4e90-3060x4080.jpg")
     }
-  }, [pageInfo]);
+  }, [pageInfo])
 
   return (
     <motion.div

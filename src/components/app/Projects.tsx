@@ -67,7 +67,17 @@ const Projects = ({ projects }: Props) => {
                 {project?.summary}
               </p>
 
-              <Link href={project.linkToBuild} className="bg-[#f7ab0a] py-5 px-5 md:px-10 rounded-md text-black font-bold text-lg">Visit Project</Link>
+              {project.linkToBuild && (
+                <div className="text-center mt-2">
+                  <Link
+                    href={project.linkToBuild}
+                    className="bg-[#f7ab0a] py-2 px-5 md:px-10 text-center rounded-md text-black font-bold text-lg"
+                  >
+                    Visit Project
+                  </Link>
+
+                </div>
+              )}
             </div>
           </div>
         ))}

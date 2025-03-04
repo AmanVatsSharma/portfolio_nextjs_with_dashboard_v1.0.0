@@ -96,11 +96,15 @@ function TechLab({}: Props) {
 
         // Touch move handler
         const handleTouchMove = (event: TouchEvent) => {
+            if (!isInteracting) return;
             event.preventDefault();
             const touch = event.touches[0];
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            
             interactionPosition.current = {
-                x: (touch.clientX / window.innerWidth) * 2 - 1,
-                y: -(touch.clientY / window.innerHeight) * 2 + 1
+                x: ((touch.clientX - rect.left) / rect.width) * 2 - 1,
+                y: -((touch.clientY - rect.top) / rect.height) * 2 + 1
             };
         };
 
@@ -119,6 +123,16 @@ function TechLab({}: Props) {
                 }
             }
             lastTouchTime.current = now;
+            
+            // Set initial touch position
+            const touch = event.touches[0];
+            const rect = canvasRef.current?.getBoundingClientRect();
+            if (!rect) return;
+            
+            interactionPosition.current = {
+                x: ((touch.clientX - rect.left) / rect.width) * 2 - 1,
+                y: -((touch.clientY - rect.top) / rect.height) * 2 + 1
+            };
         };
 
         // Touch end handler
@@ -189,21 +203,27 @@ function TechLab({}: Props) {
 
         // Add event listeners
         window.addEventListener('resize', handleResize);
-        window.addEventListener('mousemove', handleMouseMove);
-        window.addEventListener('mousedown', () => setIsInteracting(true));
-        window.addEventListener('mouseup', () => setIsInteracting(false));
-        window.addEventListener('touchstart', handleTouchStart, { passive: false });
-        window.addEventListener('touchmove', handleTouchMove, { passive: false });
-        window.addEventListener('touchend', handleTouchEnd);
+        canvasRef.current.addEventListener('mousemove', handleMouseMove);
+        canvasRef.current.addEventListener('mousedown', () => setIsInteracting(true));
+        canvasRef.current.addEventListener('mouseup', () => setIsInteracting(false));
+        canvasRef.current.addEventListener('mouseleave', () => setIsInteracting(false));
+        canvasRef.current.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvasRef.current.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvasRef.current.addEventListener('touchend', handleTouchEnd);
+        canvasRef.current.addEventListener('touchcancel', handleTouchEnd);
 
         return () => {
             window.removeEventListener('resize', handleResize);
-            window.removeEventListener('mousemove', handleMouseMove);
-            window.removeEventListener('mousedown', () => setIsInteracting(true));
-            window.removeEventListener('mouseup', () => setIsInteracting(false));
-            window.removeEventListener('touchstart', handleTouchStart);
-            window.removeEventListener('touchmove', handleTouchMove);
-            window.removeEventListener('touchend', handleTouchEnd);
+            if (canvasRef.current) {
+                canvasRef.current.removeEventListener('mousemove', handleMouseMove);
+                canvasRef.current.removeEventListener('mousedown', () => setIsInteracting(true));
+                canvasRef.current.removeEventListener('mouseup', () => setIsInteracting(false));
+                canvasRef.current.removeEventListener('mouseleave', () => setIsInteracting(false));
+                canvasRef.current.removeEventListener('touchstart', handleTouchStart);
+                canvasRef.current.removeEventListener('touchmove', handleTouchMove);
+                canvasRef.current.removeEventListener('touchend', handleTouchEnd);
+                canvasRef.current.removeEventListener('touchcancel', handleTouchEnd);
+            }
         };
     }, [isInteracting]);
 

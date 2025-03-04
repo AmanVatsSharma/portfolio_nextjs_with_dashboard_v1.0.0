@@ -24,8 +24,7 @@ import CodeMetrics from "@/components/app/CodeMetrics";
 import TechLoader from '@/components/common/TechLoader';
 
 
-const Home: NextPage = ({
-}) => {
+const Home: NextPage = () => {
 
   const defaultPageInfo: PageInfo = {
     _createdAt: '',
@@ -82,60 +81,60 @@ const Home: NextPage = ({
       }
     };
     getData();
-  }, [])
+  }, []);
 
   if (loading) {
     return <TechLoader />;
   }
 
   return (
-    <div className="bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80">
+    <div className="bg-[rgb(36,36,36)] text-white min-h-screen h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scrollbar scrollbar-track-gray-400/20 scrollbar-thumb-[#f7ab0a]/80 touch-pan-y overscroll-y-none">
       {/* header section here */}
       <Header socials={socials} />
 
       {/* hero section here */}
-      <section id="hero" className="snap-start">
+      <section id="hero" className="snap-start min-h-screen">
         <Hero pageInfo={pageInfo} />
       </section>
 
       {/* about section here */}
-      <section id="about" className="snap-center">
+      <section id="about" className="snap-center min-h-screen">
         <About pageInfo={pageInfo} />
       </section>
 
       {/* experience section here */}
-      <section id="experience" className="snap-center">
+      <section id="experience" className="snap-center min-h-screen">
         <WorkExperience experiences={experiences} />
       </section>
 
       {/* skills section here */}
-      <section id="skills" className="snap-start">
+      <section id="skills" className="snap-start min-h-screen">
         <Skills skills={skills} />
       </section>
 
       {/* projects section here */}
-      <section id="projects" className="snap-start">
+      <section id="projects" className="snap-start min-h-screen">
         <Projects projects={projects} />
       </section>
 
       {/* contact me section here */}
-      <section id="contact" className="snap-start">
+      <section id="contact" className="snap-start min-h-screen">
         <ContactMe />
       </section>
 
       {/* tech lab section here */}
-      <section id="tech-lab" className="snap-start">
+      <section id="tech-lab" className="snap-start min-h-screen">
         <TechLab />
       </section>
 
       {/* code metrics section here */}
-      <section id="code-metrics" className="snap-start">
+      <section id="code-metrics" className="snap-start min-h-screen">
         <CodeMetrics />
       </section>
 
       <Link href="#hero">
-        <footer className="fixed bottom-5 left-1/2 -translate-x-1/2 z-10 pointer-events-auto">
-          <div className="relative group">
+        <footer className="fixed bottom-5 left-1/2 -translate-x-1/2 z-10 pointer-events-none">
+          <div className="relative group pointer-events-auto">
             <div className="absolute -inset-2 bg-gradient-to-r from-[#f7ab0a]/10 to-[#f7ab0a]/10 rounded-full blur opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
             <img
               className="h-7 w-7 md:h-10 md:w-10 rounded-full filter grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"

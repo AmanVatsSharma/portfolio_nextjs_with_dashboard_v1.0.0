@@ -74,7 +74,7 @@ const ContactMe = () => {
       <div className="pt-28 sm:pt-36 flex flex-col space-y-4 sm:space-y-6 md:space-y-10">
         <h4 className="text-lg sm:text-xl md:text-4xl font-semibold text-center">
           I have got just what you need.{" "}
-          <span className="decoration-[#f7ab0a]/50 underline">Lets Talk.</span>
+          <span className="decoration-[#f7ab0a]/50 underline">Let&apos;s Talk.</span>
         </h4>
 
         <div className="space-y-6 sm:space-y-10">

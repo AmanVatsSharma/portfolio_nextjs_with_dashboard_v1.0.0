@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Skill as SkillType } from "../../../typing";
 import { urlFor } from "@/pages/api/sanity";
+import Image from "next/image";
 
 type Props = {
   skill: SkillType;
@@ -31,8 +32,11 @@ const Skill = ({skill, directionLeft }: Props) => {
         {/* Animated border effect */}
         <div className="absolute -inset-1 bg-gradient-to-r from-[#f7ab0a] to-[#f7ab0a]/50 rounded-full blur opacity-0 group-hover:opacity-50 transition duration-500" />
         
-        <img
+        <Image
           src={urlFor(skill.image).url()}
+          alt={skill.title}
+          width={96}
+          height={96}
           className="relative rounded-full border-2 border-[#333] object-cover w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 xl:w-24 xl:h-24 filter group-hover:grayscale transition duration-300 ease-in-out bg-[#1d1d1d] group-hover:border-[#f7ab0a]/50"
         />
 

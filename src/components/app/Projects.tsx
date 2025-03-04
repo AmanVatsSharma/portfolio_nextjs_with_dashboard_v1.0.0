@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Project } from "../../../typing";
 import { urlFor } from "@/pages/api/sanity";
 import Link from "next/link";
+import Image from "next/image";
 
 type Props = {
   projects: Project[];
@@ -31,7 +32,7 @@ const Projects = ({ projects }: Props) => {
             className="w-screen flex-shrink-0 snap-center flex flex-col space-y-3 sm:space-y-5 items-center justify-center p-4 sm:p-18 md:p-44 h-screen"
             key={i + 1}
           >
-            <motion.img
+            <motion.div
               initial={{
                 y: -150,
                 opacity: 0,
@@ -45,10 +46,16 @@ const Projects = ({ projects }: Props) => {
                 transition: { duration: 0.3 }
               }}
               viewport={{ once: true }}
-              src={urlFor(project.image).url()}
-              alt={project.title}
-              className="max-w-[85%] sm:max-w-[75%] md:max-w-[60%] object-contain rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
-            />
+              className="max-w-[85%] sm:max-w-[75%] md:max-w-[60%] relative"
+            >
+              <Image
+                src={urlFor(project.image).url()}
+                alt={project.title}
+                width={800}
+                height={450}
+                className="object-contain rounded-lg shadow-xl hover:shadow-2xl transition-shadow duration-300"
+              />
+            </motion.div>
 
             <div className="space-y-4 sm:space-y-10 px-4 sm:px-10 max-w-6xl p-4 relative bg-[#1d1d1d]/60 backdrop-blur-lg rounded-lg border border-[#333] hover:border-[#f7ab0a]/30 transition-colors duration-300">
               <div className="relative">
@@ -69,9 +76,11 @@ const Projects = ({ projects }: Props) => {
                     transition={{ type: "spring", stiffness: 300 }}
                   >
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#f7ab0a]/50 to-[#f7ab0a]/30 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 blur" />
-                    <img
+                    <Image
                       src={urlFor(technology.image).url()}
                       alt={technology.title}
+                      width={40}
+                      height={40}
                       className="relative h-8 w-8 sm:h-10 sm:w-10 rounded-full object-contain bg-[#1d1d1d] p-1 hover:bg-[#2d2d2d] transition-colors duration-300"
                     />
                   </motion.div>

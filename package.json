@@ -1,0 +1,45 @@
+{
+  "name": "portfolio_nextjs_with_dashboard_v1.0.0",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.1.4",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/react-loader": "^1.10.4",
+    "@sanity/vision": "^3.49.0",
+    "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.2.13",
+    "lucide-react": "^0.344.0",
+    "next": "14.2.4",
+    "next-sanity": "^9.4.2",
+    "next-sanity-client": "^1.0.8",
+    "prettier": "^3.3.2",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "react-simple-typewriter": "^5.0.1",
+    "react-social-icons": "^6.16.0",
+    "sanity": "^3.49.0",
+    "styled-components": "^6.1.11",
+    "three": "^0.161.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/three": "^0.161.2",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.4",
+    "postcss": "^8",
+    "tailwind-scrollbar": "^3.1.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}

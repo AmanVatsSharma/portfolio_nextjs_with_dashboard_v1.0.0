@@ -187,7 +187,7 @@ const ContactMe = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-green-500 text-sm text-center"
             >
-              Message sent successfully! I'll get back to you soon.
+              Message sent successfully! I&apos;ll get back to you soon.
             </motion.div>
           )}
           

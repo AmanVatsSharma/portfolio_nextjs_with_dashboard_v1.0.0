@@ -134,12 +134,13 @@ const Home: NextPage = ({
       </section>
 
       <Link href="#hero">
-        <footer className="sticky bottom-10 w-full cursor-pointer">
-          <div className="flex items-center justify-center">
+        <footer className="fixed bottom-5 left-1/2 -translate-x-1/2 z-10 pointer-events-auto">
+          <div className="relative group">
+            <div className="absolute -inset-2 bg-gradient-to-r from-[#f7ab0a]/10 to-[#f7ab0a]/10 rounded-full blur opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
             <img
-              className="h-10 w-10 rounded-full filter grayscale hover:grayscale-0 cursor-pointer"
+              className="h-7 w-7 md:h-10 md:w-10 rounded-full filter grayscale hover:grayscale-0 transition-all duration-300 hover:scale-110"
               src="https://img.lum.dolimg.com/v1/images/image_808f708e.jpeg"
-              alt=""
+              alt="Go to top"
             />
           </div>
         </footer>

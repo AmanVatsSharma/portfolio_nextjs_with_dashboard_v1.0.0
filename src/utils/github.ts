@@ -25,17 +25,30 @@ export interface GithubStats {
     }>;
 }
 
+interface GitHubEvent {
+    type: string;
+    repo: {
+        name: string;
+    };
+    payload: {
+        commits?: Array<{ message: string }>;
+        description?: string;
+        action?: string;
+    };
+    created_at: string;
+}
+
 export const fetchGithubStats = async (): Promise<GithubStats> => {
     try {
         // Fetch user's events
         const eventsResponse = await githubApi.get(`/users/${GITHUB_USERNAME}/events`);
-        const events = eventsResponse.data;
+        const events: GitHubEvent[] = eventsResponse.data;
 
         // Process last activities
-        const lastActivity = events.slice(0, 5).map(event => ({
+        const lastActivity = events.slice(0, 5).map((event: GitHubEvent) => ({
             type: event.type,
             repo: event.repo.name,
-            message: event.type === 'PushEvent' ? event.payload.commits?.[0]?.message : event.payload.description,
+            message: event.type === 'PushEvent' ? event.payload.commits?.[0]?.message || 'No message' : event.payload.description || 'No description',
             date: event.created_at
         }));
 
@@ -44,14 +57,14 @@ export const fetchGithubStats = async (): Promise<GithubStats> => {
         const repos = reposResponse.data;
 
         // Calculate total commits (approximate from available data)
-        const totalCommits = events.filter(event => event.type === 'PushEvent').length;
+        const totalCommits = events.filter((event: GitHubEvent) => event.type === 'PushEvent').length;
 
         return {
             totalContributions: events.length,
             repositoriesContributedTo: repos.length,
             totalCommits,
-            pullRequests: events.filter(event => event.type === 'PullRequestEvent').length,
-            issuesClosed: events.filter(event => event.type === 'IssuesEvent' && event.payload.action === 'closed').length,
+            pullRequests: events.filter((event: GitHubEvent) => event.type === 'PullRequestEvent').length,
+            issuesClosed: events.filter((event: GitHubEvent) => event.type === 'IssuesEvent' && event.payload.action === 'closed').length,
             lastActivity
         };
     } catch (error) {

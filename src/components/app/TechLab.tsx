@@ -6,9 +6,11 @@ type Props = {};
 
 function TechLab({}: Props) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isHovering, setIsHovering] = useState(false);
-    const mousePosition = useRef({ x: 0, y: 0 });
+    const [isInteracting, setIsInteracting] = useState(false);
+    const interactionPosition = useRef({ x: 0, y: 0 });
     const particlesMesh = useRef<THREE.Points | null>(null);
+    const rotationSpeed = useRef({ x: 0, y: 0 });
+    const lastTouchTime = useRef(0);
 
     useEffect(() => {
         if (!canvasRef.current) return;
@@ -47,27 +49,35 @@ function TechLab({}: Props) {
         particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
         
-        // Create custom shader material
+        // Create custom shader material with improved glow effect
         const particlesMaterial = new THREE.ShaderMaterial({
             vertexShader: `
                 attribute float size;
                 varying vec3 vColor;
+                varying float vDistance;
                 void main() {
                     vColor = color;
                     vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+                    vDistance = -mvPosition.z;
                     gl_PointSize = size * (300.0 / -mvPosition.z);
                     gl_Position = projectionMatrix * mvPosition;
                 }
             `,
             fragmentShader: `
                 varying vec3 vColor;
+                varying float vDistance;
                 void main() {
-                    if (length(gl_PointCoord - vec2(0.5)) > 0.5) discard;
-                    gl_FragColor = vec4(vColor, 1.0);
+                    float distanceFromCenter = length(gl_PointCoord - vec2(0.5));
+                    if (distanceFromCenter > 0.5) discard;
+                    float alpha = 1.0 - smoothstep(0.45, 0.5, distanceFromCenter);
+                    float glow = exp(-distanceFromCenter * 4.0) * 0.3;
+                    vec3 glowColor = mix(vColor, vec3(1.0), 0.5);
+                    gl_FragColor = vec4(mix(vColor, glowColor, glow), alpha);
                 }
             `,
             transparent: true,
             vertexColors: true,
+            blending: THREE.AdditiveBlending,
         });
         
         particlesMesh.current = new THREE.Points(particlesGeometry, particlesMaterial);
@@ -77,10 +87,44 @@ function TechLab({}: Props) {
 
         // Mouse move handler
         const handleMouseMove = (event: MouseEvent) => {
-            mousePosition.current = {
+            event.preventDefault();
+            interactionPosition.current = {
                 x: (event.clientX / window.innerWidth) * 2 - 1,
                 y: -(event.clientY / window.innerHeight) * 2 + 1
             };
+        };
+
+        // Touch move handler
+        const handleTouchMove = (event: TouchEvent) => {
+            event.preventDefault();
+            const touch = event.touches[0];
+            interactionPosition.current = {
+                x: (touch.clientX / window.innerWidth) * 2 - 1,
+                y: -(touch.clientY / window.innerHeight) * 2 + 1
+            };
+        };
+
+        // Touch start handler
+        const handleTouchStart = (event: TouchEvent) => {
+            event.preventDefault();
+            setIsInteracting(true);
+            const now = Date.now();
+            if (now - lastTouchTime.current < 300) {
+                // Double tap detected - add special effect
+                if (particlesMesh.current) {
+                    rotationSpeed.current = {
+                        x: Math.random() * 0.2 - 0.1,
+                        y: Math.random() * 0.2 - 0.1
+                    };
+                }
+            }
+            lastTouchTime.current = now;
+        };
+
+        // Touch end handler
+        const handleTouchEnd = () => {
+            setIsInteracting(false);
+            rotationSpeed.current = { x: 0, y: 0 };
         };
 
         // Animation
@@ -88,30 +132,43 @@ function TechLab({}: Props) {
             requestAnimationFrame(animate);
 
             if (particlesMesh.current) {
-                // Basic rotation
-                particlesMesh.current.rotation.y += 0.001;
+                // Basic rotation with momentum
+                particlesMesh.current.rotation.y += 0.001 + rotationSpeed.current.y;
+                particlesMesh.current.rotation.x += rotationSpeed.current.x;
                 
-                // Interactive movement based on mouse position when hovering
-                if (isHovering) {
-                    particlesMesh.current.rotation.x += (mousePosition.current.y * 0.01 - particlesMesh.current.rotation.x) * 0.1;
-                    particlesMesh.current.rotation.y += (mousePosition.current.x * 0.01 - particlesMesh.current.rotation.y) * 0.1;
+                // Interactive movement based on interaction position
+                if (isInteracting) {
+                    const targetRotationX = interactionPosition.current.y * Math.PI * 0.5;
+                    const targetRotationY = interactionPosition.current.x * Math.PI * 0.5;
+                    
+                    particlesMesh.current.rotation.x += (targetRotationX - particlesMesh.current.rotation.x) * 0.05;
+                    particlesMesh.current.rotation.y += (targetRotationY - particlesMesh.current.rotation.y) * 0.05;
+                } else {
+                    // Smooth return to default rotation
+                    particlesMesh.current.rotation.x *= 0.95;
+                    rotationSpeed.current.x *= 0.95;
+                    rotationSpeed.current.y *= 0.95;
                 }
 
-                // Pulsing effect
+                // Dynamic particle effects
                 const positions = particlesMesh.current.geometry.attributes.position.array as Float32Array;
                 const sizes = particlesMesh.current.geometry.attributes.size.array as Float32Array;
+                const time = Date.now() * 0.001;
                 
                 for(let i = 0; i < positions.length; i += 3) {
                     const x = positions[i];
                     const y = positions[i + 1];
                     const z = positions[i + 2];
 
-                    // Add subtle wave motion
-                    positions[i + 1] = y + Math.sin(Date.now() * 0.001 + x) * 0.002;
+                    // Add more dynamic wave motion
+                    positions[i + 1] = y + Math.sin(time + x) * 0.003;
+                    positions[i] = x + Math.cos(time + y) * 0.002;
                     
-                    // Pulse size
+                    // Dynamic size pulsing
                     const sizeIndex = i / 3;
-                    sizes[sizeIndex] = (Math.sin(Date.now() * 0.001 + x) + 2) * 0.01;
+                    const basePulse = (Math.sin(time + x) + 2) * 0.01;
+                    const interactionBoost = isInteracting ? 0.005 : 0;
+                    sizes[sizeIndex] = basePulse + interactionBoost;
                 }
 
                 particlesMesh.current.geometry.attributes.position.needsUpdate = true;
@@ -130,14 +187,25 @@ function TechLab({}: Props) {
             renderer.setSize(window.innerWidth, window.innerHeight);
         };
 
+        // Add event listeners
         window.addEventListener('resize', handleResize);
         window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mousedown', () => setIsInteracting(true));
+        window.addEventListener('mouseup', () => setIsInteracting(false));
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd);
 
         return () => {
             window.removeEventListener('resize', handleResize);
             window.removeEventListener('mousemove', handleMouseMove);
+            window.removeEventListener('mousedown', () => setIsInteracting(true));
+            window.removeEventListener('mouseup', () => setIsInteracting(false));
+            window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
         };
-    }, [isHovering]);
+    }, [isInteracting]);
 
     return (
         <div className="h-screen relative flex flex-col items-center justify-center text-center md:text-left md:flex-row max-w-7xl px-10 mx-auto">
@@ -150,10 +218,8 @@ function TechLab({}: Props) {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 1.5 }}
                 className="relative w-full h-[600px] mx-auto flex items-center justify-center"
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
             >
-                <canvas ref={canvasRef} className="w-full h-full" />
+                <canvas ref={canvasRef} className="w-full h-full touch-none" />
                 
                 <motion.div 
                     className="absolute bottom-10 left-0 right-0 text-center space-y-4 z-20"
@@ -165,9 +231,9 @@ function TechLab({}: Props) {
                         Interactive Code Universe
                     </h4>
                     <p className="text-lg text-gray-400 max-w-3xl mx-auto">
-                        Move your mouse to interact with this dynamic visualization. 
-                        Each particle represents a piece of technology in my stack, 
-                        floating in perfect harmony.
+                        Touch, drag, or move your mouse to interact with this dynamic visualization. 
+                        Double-tap or click for special effects! Each particle represents a piece of 
+                        technology in my stack, floating in perfect harmony.
                     </p>
                 </motion.div>
             </motion.div>
